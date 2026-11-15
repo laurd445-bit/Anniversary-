@@ -34,7 +34,6 @@
             padding: 40px 20px;
         }
 
-        /* Sparkles Canvas */
         #sparkles-canvas {
             position: fixed;
             top: 0;
@@ -45,7 +44,6 @@
             z-index: 1;
         }
 
-        /* Floating Balloons Container */
         .balloons-container {
             position: fixed;
             top: 0;
@@ -92,32 +90,20 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.9;
-            }
-            90% {
-                opacity: 0.9;
-            }
-            100% {
-                transform: translateY(-120vh) rotate(15deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.9; }
+            100% { transform: translateY(-120vh) rotate(15deg); opacity: 0; }
         }
 
-        /* Main Content Container */
         .container {
             position: relative;
-            z-index: 10;
+            z-index: 20;
             max-width: 750px;
             width: 100%;
             text-align: center;
         }
 
-        /* Intro Screen */
         #intro-screen {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -171,22 +157,20 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
             font-family: 'Montserrat', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 30;
         }
 
-        .open-btn:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.8);
+        .open-btn:active {
+            transform: scale(0.96);
         }
 
         .sound-hint {
             margin-top: 15px;
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.65);
-            letter-spacing: 0.5px;
         }
 
-        /* Letter Card */
         #letter-card {
             display: none;
             background: var(--card-bg);
@@ -269,14 +253,12 @@
             animation: heartbeat 1.2s infinite;
         }
 
-        /* Floating Music Toggle Button */
         .music-btn {
             position: fixed;
             bottom: 22px;
             right: 22px;
             z-index: 100;
-            background: rgba(26, 11, 18, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(26, 11, 18, 0.9);
             color: var(--gold);
             border: 1px solid rgba(255, 215, 0, 0.5);
             padding: 10px 18px;
@@ -289,11 +271,6 @@
             display: none;
             align-items: center;
             gap: 8px;
-            transition: transform 0.2s ease;
-        }
-
-        .music-btn:hover {
-            transform: scale(1.05);
         }
 
         @keyframes heartbeat {
@@ -324,16 +301,13 @@
     <canvas id="sparkles-canvas"></canvas>
     <div class="balloons-container" id="balloons"></div>
 
-    <!-- Your Exact Uploaded Song File -->
-    <audio id="bg-music" src="./SpotiDown.App%20-%20Love%20Me%20Like%20You%20Do%20-%20Ellie%20Goulding%20(1).mp3" loop preload="auto" playsinline></audio>
+    <audio id="bg-music" src="SpotiDown.App%20-%20Love%20Me%20Like%20You%20Do%20-%20Ellie%20Goulding%20(1).mp3" loop preload="auto" playsinline></audio>
 
-    <!-- Floating Music Control -->
     <button id="music-toggle" class="music-btn" onclick="toggleMusic()">
         <span id="music-icon">🎵</span> <span id="music-text">Pause Music</span>
     </button>
 
     <div class="container">
-        <!-- Initial Welcome Card -->
         <div id="intro-screen">
             <div class="subtitle">365 Days of Loving You</div>
             <h1>Happy 1st Anniversary,<br>Linda</h1>
@@ -342,11 +316,10 @@
                 My Babe, my best friend, my favorite person in this entire world.<br>
                 I made something special for you today.
             </p>
-            <button id="open-btn" class="open-btn">Open My Heart ❤️</button>
+            <button type="button" class="open-btn" onclick="openLetter()">Open My Heart ❤️</button>
             <div class="sound-hint">🔊 Turn your volume up</div>
         </div>
 
-        <!-- The Emotional Letter -->
         <div id="letter-card">
             <div class="letter-header">
                 <h2>To My Dearest Babe,</h2>
@@ -393,9 +366,53 @@
     </div>
 
     <script>
-        // 1. Floating Balloons Generator
-        const balloonContainer = document.getElementById('balloons');
-        const balloonColors = [
+        function openLetter() {
+            var intro = document.getElementById('intro-screen');
+            var letter = document.getElementById('letter-card');
+            var musicBtn = document.getElementById('music-toggle');
+            var audio = document.getElementById('bg-music');
+
+            if (intro) intro.style.display = 'none';
+            if (letter) letter.style.display = 'block';
+            if (musicBtn) musicBtn.style.display = 'flex';
+
+            if (audio) {
+                audio.volume = 0.9;
+                var p = audio.play();
+                if (p !== undefined) {
+                    p.then(function() {
+                        document.getElementById('music-icon').textContent = '🎵';
+                        document.getElementById('music-text').textContent = 'Pause Music';
+                    }).catch(function() {
+                        document.getElementById('music-icon').textContent = '▶️';
+                        document.getElementById('music-text').textContent = 'Play Song';
+                    });
+                }
+            }
+
+            spawnBurst(window.innerWidth / 2, window.innerHeight / 2, 80);
+            for (var i = 0; i < 15; i++) {
+                setTimeout(createBalloon, i * 150);
+            }
+        }
+
+        function toggleMusic() {
+            var audio = document.getElementById('bg-music');
+            var icon = document.getElementById('music-icon');
+            var text = document.getElementById('music-text');
+            if (audio.paused) {
+                audio.play();
+                icon.textContent = '🎵';
+                text.textContent = 'Pause Music';
+            } else {
+                audio.pause();
+                icon.textContent = '🔇';
+                text.textContent = 'Play Music';
+            }
+        }
+
+        var balloonContainer = document.getElementById('balloons');
+        var balloonColors = [
             'radial-gradient(circle at 30% 30%, #ff758f, #c9184a)',
             'radial-gradient(circle at 30% 30%, #ffe066, #d4a017)',
             'radial-gradient(circle at 30% 30%, #ffccd5, #ff4d6d)',
@@ -404,34 +421,27 @@
         ];
 
         function createBalloon() {
-            const balloon = document.createElement('div');
-            balloon.classList.add('balloon');
-            
-            const size = Math.random() * 25 + 40;
-            balloon.style.width = `${size}px`;
-            balloon.style.height = `${size * 1.22}px`;
-            balloon.style.left = `${Math.random() * 100}vw`;
+            var balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            var size = Math.random() * 25 + 40;
+            balloon.style.width = size + 'px';
+            balloon.style.height = (size * 1.22) + 'px';
+            balloon.style.left = (Math.random() * 100) + 'vw';
             balloon.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-            
-            const duration = Math.random() * 8 + 9;
-            balloon.style.animationDuration = `${duration}s`;
-            
+            var duration = Math.random() * 8 + 9;
+            balloon.style.animationDuration = duration + 's';
             balloonContainer.appendChild(balloon);
-
-            setTimeout(() => {
-                balloon.remove();
-            }, duration * 1000);
+            setTimeout(function() { balloon.remove(); }, duration * 1000);
         }
 
-        for (let i = 0; i < 18; i++) {
+        for (var i = 0; i < 18; i++) {
             setTimeout(createBalloon, i * 400);
         }
         setInterval(createBalloon, 700);
 
-        // 2. Sparkles Particle System
-        const canvas = document.getElementById('sparkles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        var canvas = document.getElementById('sparkles-canvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -440,125 +450,76 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class Sparkle {
-            constructor(x, y, burst = false) {
-                this.x = x || Math.random() * canvas.width;
-                this.y = y || Math.random() * canvas.height;
-                this.size = Math.random() * 3.5 + 1;
-                this.speedX = burst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.5;
-                this.speedY = burst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.5 - 0.2;
-                this.alpha = Math.random();
-                this.fadeSpeed = Math.random() * 0.02 + 0.005;
-                this.growing = Math.random() > 0.5;
-                this.color = Math.random() > 0.35 ? '255, 215, 0' : '255, 182, 193';
-                this.burst = burst;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.burst) {
-                    this.alpha -= 0.015;
-                } else {
-                    if (this.growing) {
-                        this.alpha += this.fadeSpeed;
-                        if (this.alpha >= 1) this.growing = false;
-                    } else {
-                        this.alpha -= this.fadeSpeed;
-                        if (this.alpha <= 0.1) this.growing = true;
-                    }
-
-                    if (this.y < 0) this.y = canvas.height;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.x > canvas.width) this.x = 0;
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${this.color}, ${Math.max(0, this.alpha)})`;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = `rgba(${this.color}, 1)`;
-                ctx.fill();
-
-                if (this.alpha > 0.7 && this.size > 2.2) {
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${this.alpha * 0.8})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.beginPath();
-                    ctx.moveTo(this.x - this.size * 2.5, this.y);
-                    ctx.lineTo(this.x + this.size * 2.5, this.y);
-                    ctx.moveTo(this.x, this.y - this.size * 2.5);
-                    ctx.lineTo(this.x, this.y + this.size * 2.5);
-                    ctx.stroke();
-                }
-                ctx.restore();
-            }
+        function Sparkle(x, y, burst) {
+            this.x = x || Math.random() * canvas.width;
+            this.y = y || Math.random() * canvas.height;
+            this.size = Math.random() * 3.5 + 1;
+            this.speedX = burst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.5;
+            this.speedY = burst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.5 - 0.2;
+            this.alpha = Math.random();
+            this.fadeSpeed = Math.random() * 0.02 + 0.005;
+            this.growing = Math.random() > 0.5;
+            this.color = Math.random() > 0.35 ? '255, 215, 0' : '255, 182, 193';
+            this.burst = burst || false;
         }
 
-        for (let i = 0; i < 140; i++) {
+        Sparkle.prototype.update = function() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.burst) {
+                this.alpha -= 0.015;
+            } else {
+                if (this.growing) {
+                    this.alpha += this.fadeSpeed;
+                    if (this.alpha >= 1) this.growing = false;
+                } else {
+                    this.alpha -= this.fadeSpeed;
+                    if (this.alpha <= 0.1) this.growing = true;
+                }
+                if (this.y < 0) this.y = canvas.height;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+            }
+        };
+
+        Sparkle.prototype.draw = function() {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(' + this.color + ',' + Math.max(0, this.alpha) + ')';
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = 'rgba(' + this.color + ', 1)';
+            ctx.fill();
+            ctx.restore();
+        };
+
+        for (var j = 0; j < 120; j++) {
             particles.push(new Sparkle());
         }
 
-        function spawnBurst(x, y, count = 8) {
-            for (let i = 0; i < count; i++) {
+        function spawnBurst(x, y, count) {
+            for (var k = 0; k < count; k++) {
                 particles.push(new Sparkle(x, y, true));
             }
         }
 
-        window.addEventListener('mousemove', (e) => spawnBurst(e.clientX, e.clientY, 2));
-        window.addEventListener('touchstart', (e) => {
-            const touch = e.touches[0];
-            spawnBurst(touch.clientX, touch.clientY, 15);
+        window.addEventListener('touchstart', function(e) {
+            if (e.touches && e.touches[0]) {
+                spawnBurst(e.touches[0].clientX, e.touches[0].clientY, 12);
+            }
         });
 
         function animateSparkles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles = particles.filter(p => !p.burst || p.alpha > 0);
-            particles.forEach(p => {
+            particles = particles.filter(function(p) { return !p.burst || p.alpha > 0; });
+            particles.forEach(function(p) {
                 p.update();
                 p.draw();
             });
             requestAnimationFrame(animateSparkles);
         }
         animateSparkles();
+    </script>
+</body>
+</html>
 
-        // 3. Guaranteed Autoplay on Button Click / Touch
-        const audio = document.getElementById('bg-music');
-        const musicIcon = document.getElementById('music-icon');
-        const musicText = document.getElementById('music-text');
-        const openBtn = document.getElementById('open-btn');
-
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
-                musicIcon.textContent = '🎵';
-                musicText.textContent = 'Pause Music';
-            } else {
-                audio.pause();
-                musicIcon.textContent = '🔇';
-                musicText.textContent = 'Play Music';
-            }
-        }
-
-        function openLetter() {
-            audio.volume = 0.9;
-            const playPromise = audio.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    musicIcon.textContent = '🎵';
-                    musicText.textContent = 'Pause Music';
-                }).catch(() => {
-                    musicIcon.textContent = '▶️';
-                    musicText.textContent = 'Tap to Play Song';
-                });
-            }
-
-            document.getElementById('intro-screen').style.display = 'none';
-            document.getElementById('letter-card').style.display = 'block';
-            document.getElementById('music-toggle').style.display = 'flex';
-
-            spawn
