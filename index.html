@@ -171,11 +171,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
             font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .open-btn:hover {
             transform: scale(1.06);
             box-shadow: 0 0 35px rgba(255, 215, 0, 0.8);
+        }
+
+        .sound-hint {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 0.5px;
         }
 
         /* Letter Card */
@@ -261,6 +269,33 @@
             animation: heartbeat 1.2s infinite;
         }
 
+        /* Floating Music Toggle Button */
+        .music-btn {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            z-index: 100;
+            background: rgba(26, 11, 18, 0.85);
+            backdrop-filter: blur(8px);
+            color: var(--gold);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+        }
+
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.25); }
@@ -289,6 +324,14 @@
     <canvas id="sparkles-canvas"></canvas>
     <div class="balloons-container" id="balloons"></div>
 
+    <!-- Your Exact Uploaded Song File -->
+    <audio id="bg-music" src="./SpotiDown.App%20-%20Love%20Me%20Like%20You%20Do%20-%20Ellie%20Goulding%20(1).mp3" loop preload="auto" playsinline></audio>
+
+    <!-- Floating Music Control -->
+    <button id="music-toggle" class="music-btn" onclick="toggleMusic()">
+        <span id="music-icon">🎵</span> <span id="music-text">Pause Music</span>
+    </button>
+
     <div class="container">
         <!-- Initial Welcome Card -->
         <div id="intro-screen">
@@ -299,7 +342,8 @@
                 My Babe, my best friend, my favorite person in this entire world.<br>
                 I made something special for you today.
             </p>
-            <button class="open-btn" onclick="openLetter()">Open My Heart ❤️</button>
+            <button id="open-btn" class="open-btn">Open My Heart ❤️</button>
+            <div class="sound-hint">🔊 Turn your volume up</div>
         </div>
 
         <!-- The Emotional Letter -->
@@ -363,13 +407,13 @@
             const balloon = document.createElement('div');
             balloon.classList.add('balloon');
             
-            const size = Math.random() * 25 + 40; // 40px to 65px
+            const size = Math.random() * 25 + 40;
             balloon.style.width = `${size}px`;
             balloon.style.height = `${size * 1.22}px`;
             balloon.style.left = `${Math.random() * 100}vw`;
             balloon.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
             
-            const duration = Math.random() * 8 + 9; // 9s to 17s
+            const duration = Math.random() * 8 + 9;
             balloon.style.animationDuration = `${duration}s`;
             
             balloonContainer.appendChild(balloon);
@@ -379,7 +423,6 @@
             }, duration * 1000);
         }
 
-        // Initial batch of balloons
         for (let i = 0; i < 18; i++) {
             setTimeout(createBalloon, i * 400);
         }
@@ -407,7 +450,7 @@
                 this.alpha = Math.random();
                 this.fadeSpeed = Math.random() * 0.02 + 0.005;
                 this.growing = Math.random() > 0.5;
-                this.color = Math.random() > 0.35 ? '255, 215, 0' : '255, 182, 193'; // Gold & Soft Pink
+                this.color = Math.random() > 0.35 ? '255, 215, 0' : '255, 182, 193';
                 this.burst = burst;
             }
 
@@ -441,7 +484,6 @@
                 ctx.shadowColor = `rgba(${this.color}, 1)`;
                 ctx.fill();
 
-                // Cross glint for brighter sparkles
                 if (this.alpha > 0.7 && this.size > 2.2) {
                     ctx.strokeStyle = `rgba(255, 255, 255, ${this.alpha * 0.8})`;
                     ctx.lineWidth = 0.8;
@@ -456,12 +498,10 @@
             }
         }
 
-        // Create ambient sparkles
         for (let i = 0; i < 140; i++) {
             particles.push(new Sparkle());
         }
 
-        // Sparkle trail on mouse move / touch
         function spawnBurst(x, y, count = 8) {
             for (let i = 0; i < count; i++) {
                 particles.push(new Sparkle(x, y, true));
@@ -485,18 +525,40 @@
         }
         animateSparkles();
 
-        // 3. Open Letter Interaction
-        function openLetter() {
-            document.getElementById('intro-screen').style.display = 'none';
-            document.getElementById('letter-card').style.display = 'block';
-            
-            // Celebration burst of sparkles and extra balloons
-            spawnBurst(window.innerWidth / 2, window.innerHeight / 2, 80);
-            for (let i = 0; i < 15; i++) {
-                setTimeout(createBalloon, i * 150);
+        // 3. Guaranteed Autoplay on Button Click / Touch
+        const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicText = document.getElementById('music-text');
+        const openBtn = document.getElementById('open-btn');
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.textContent = '🎵';
+                musicText.textContent = 'Pause Music';
+            } else {
+                audio.pause();
+                musicIcon.textContent = '🔇';
+                musicText.textContent = 'Play Music';
             }
         }
-    </script>
-</body>
-  </html>
-  
+
+        function openLetter() {
+            audio.volume = 0.9;
+            const playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicIcon.textContent = '🎵';
+                    musicText.textContent = 'Pause Music';
+                }).catch(() => {
+                    musicIcon.textContent = '▶️';
+                    musicText.textContent = 'Tap to Play Song';
+                });
+            }
+
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('letter-card').style.display = 'block';
+            document.getElementById('music-toggle').style.display = 'flex';
+
+            spawn
