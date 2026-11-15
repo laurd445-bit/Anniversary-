@@ -13,13 +13,7 @@
             --bg-dark: #1a0b12;
             --card-bg: rgba(255, 255, 255, 0.94);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             min-height: 100vh;
             background: radial-gradient(circle at top, #3d1226 0%, #1a0b12 60%, #0d0408 100%);
@@ -33,261 +27,75 @@
             color: #333;
             padding: 40px 20px;
         }
-
-        #sparkles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .balloons-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
-        }
-
+        #sparkles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .balloons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: hidden; }
         .balloon {
-            position: absolute;
-            bottom: -150px;
-            width: 55px;
-            height: 68px;
-            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
-            opacity: 0.85;
+            position: absolute; bottom: -150px; width: 55px; height: 68px;
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; opacity: 0.85;
             animation: floatUp linear infinite;
             box-shadow: inset -8px -8px 15px rgba(0, 0, 0, 0.2), inset 8px 8px 15px rgba(255, 255, 255, 0.4);
         }
-
         .balloon::before {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-bottom: 8px solid inherit;
+            content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 8px solid inherit;
         }
-
-        .balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -55px;
-            left: 50%;
-            width: 1px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.4);
-        }
-
+        .balloon::after { content: ''; position: absolute; bottom: -55px; left: 50%; width: 1px; height: 50px; background: rgba(255, 255, 255, 0.4); }
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 0.9; }
             90% { opacity: 0.9; }
             100% { transform: translateY(-120vh) rotate(15deg); opacity: 0; }
         }
-
-        .container {
-            position: relative;
-            z-index: 20;
-            max-width: 750px;
-            width: 100%;
-            text-align: center;
-        }
-
+        .container { position: relative; z-index: 20; max-width: 750px; width: 100%; text-align: center; }
         #intro-screen {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 50px 30px;
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            color: #fff;
-            animation: fadeIn 1.5s ease;
+            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.3); padding: 50px 30px; border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); color: #fff; animation: fadeIn 1.5s ease;
         }
-
-        .subtitle {
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.85rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem;
-            font-weight: 400;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
-            margin-bottom: 10px;
-            line-height: 1.1;
-        }
-
+        .subtitle { text-transform: uppercase; letter-spacing: 4px; font-size: 0.85rem; color: var(--gold); margin-bottom: 15px; }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 4.5rem; font-weight: 400; color: #fff; text-shadow: 0 0 20px rgba(255, 77, 109, 0.8); margin-bottom: 10px; line-height: 1.1; }
         .date-badge {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff4d6d, #c9184a);
-            padding: 8px 22px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin: 15px 0 30px;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            display: inline-block; background: linear-gradient(45deg, #ff4d6d, #c9184a);
+            padding: 8px 22px; border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+            letter-spacing: 1px; margin: 15px 0 30px; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
         }
-
         .open-btn {
-            background: linear-gradient(45deg, #ffd700, #ffaa00);
-            color: #2b0918;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-            font-family: 'Montserrat', sans-serif;
-            position: relative;
-            z-index: 30;
+            background: linear-gradient(45deg, #ffd700, #ffaa00); color: #2b0918; border: none;
+            padding: 16px 40px; font-size: 1.1rem; font-weight: 600; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            font-family: 'Montserrat', sans-serif; position: relative; z-index: 30;
         }
-
-        .open-btn:active {
-            transform: scale(0.96);
-        }
-
-        .sound-hint {
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.65);
-        }
-
+        .open-btn:active { transform: scale(0.96); }
+        .sound-hint { margin-top: 15px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.65); }
         #letter-card {
-            display: none;
-            background: var(--card-bg);
-            padding: 55px 45px;
-            border-radius: 25px;
+            display: none; background: var(--card-bg); padding: 55px 45px; border-radius: 25px;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 77, 109, 0.3);
-            text-align: left;
-            position: relative;
-            border: 2px solid rgba(255, 215, 0, 0.5);
+            text-align: left; position: relative; border: 2px solid rgba(255, 215, 0, 0.5);
             animation: slideUp 1.2s ease forwards;
         }
-
-        .letter-header {
-            text-align: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid rgba(255, 77, 109, 0.2);
-            padding-bottom: 25px;
-        }
-
-        .letter-header h2 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: #c9184a;
-            margin-bottom: 5px;
-        }
-
-        .letter-header p {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: #777;
-            font-size: 1.05rem;
-        }
-
-        .letter-body p {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: #2b2b2b;
-            margin-bottom: 22px;
-        }
-
-        .highlight {
-            color: #c9184a;
-            font-weight: 700;
-        }
-
+        .letter-header { text-align: center; margin-bottom: 35px; border-bottom: 1px solid rgba(255, 77, 109, 0.2); padding-bottom: 25px; }
+        .letter-header h2 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #c9184a; margin-bottom: 5px; }
+        .letter-header p { font-family: 'Playfair Display', serif; font-style: italic; color: #777; font-size: 1.05rem; }
+        .letter-body p { font-family: 'Playfair Display', serif; font-size: 1.15rem; line-height: 1.9; color: #2b2b2b; margin-bottom: 22px; }
+        .highlight { color: #c9184a; font-weight: 700; }
         .quote-box {
-            background: #fff0f3;
-            border-left: 4px solid #ff4d6d;
-            padding: 20px 25px;
-            margin: 30px 0;
-            border-radius: 0 15px 15px 0;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: #590d22;
+            background: #fff0f3; border-left: 4px solid #ff4d6d; padding: 20px 25px; margin: 30px 0;
+            border-radius: 0 15px 15px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: #590d22;
         }
-
-        .signature {
-            margin-top: 40px;
-            text-align: right;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .signature p {
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        .signature .name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
-            color: #c9184a;
-        }
-
-        .heart-pulse {
-            display: inline-block;
-            color: #ff4d6d;
-            animation: heartbeat 1.2s infinite;
-        }
-
+        .signature { margin-top: 40px; text-align: right; font-family: 'Playfair Display', serif; }
+        .signature p { margin-bottom: 5px; font-size: 1.1rem; color: #555; }
+        .signature .name { font-family: 'Great Vibes', cursive; font-size: 2.8rem; color: #c9184a; }
+        .heart-pulse { display: inline-block; color: #ff4d6d; animation: heartbeat 1.2s infinite; }
         .music-btn {
-            position: fixed;
-            bottom: 22px;
-            right: 22px;
-            z-index: 100;
-            background: rgba(26, 11, 18, 0.9);
-            color: var(--gold);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 10px 18px;
-            border-radius: 50px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            display: none;
-            align-items: center;
-            gap: 8px;
+            position: fixed; bottom: 22px; right: 22px; z-index: 100; background: rgba(26, 11, 18, 0.9);
+            color: var(--gold); border: 1px solid rgba(255, 215, 0, 0.5); padding: 10px 18px;
+            border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem;
+            font-weight: 600; cursor: pointer; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            display: none; align-items: center; gap: 8px;
         }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.25); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 600px) {
             h1 { font-size: 3.3rem; }
             #letter-card { padding: 35px 25px; }
@@ -297,14 +105,11 @@
     </style>
 </head>
 <body>
-
     <canvas id="sparkles-canvas"></canvas>
     <div class="balloons-container" id="balloons"></div>
 
-    <audio id="bg-music" src="SpotiDown.App%20-%20Love%20Me%20Like%20You%20Do%20-%20Ellie%20Goulding%20(1).mp3" loop preload="auto" playsinline></audio>
-
     <button id="music-toggle" class="music-btn" onclick="toggleMusic()">
-        <span id="music-icon">🎵</span> <span id="music-text">Pause Music</span>
+        <span id="music-icon">🎵</span> <span id="music-text">Music Playing</span>
     </button>
 
     <div class="container">
@@ -325,39 +130,16 @@
                 <h2>To My Dearest Babe,</h2>
                 <p>One whole year of us, and forever to go...</p>
             </div>
-
             <div class="letter-body">
                 <p>Happy 1st Anniversary, <span class="highlight">Linda</span>.</p>
-
-                <p>
-                    I sat down trying to find the right words to capture what these past 365 days have meant to me, and honestly, my eyes started tearing up because no words will ever feel big enough for what I feel for you. A whole year ago today, our story officially began—and looking back now, I realize that saying "yes" to us was the single greatest blessing of my life.
-                </p>
-
-                <p>
-                    To the world, your name is Linda. <span class="highlight">Buh to me, you will always be my Babe</span>—my safe place, my peace, my loudest cheerleader, and the person my heart instinctively searches for in every room. Every single time I call you "Babe," it isn't just a pet name; it is a reminder that you are mine, and I am completely, unconditionally yours.
-                </p>
-
-                <p>
-                    Before you walked into my life, I didn't know love could feel this gentle yet this powerful. You didn't just become my girlfriend; you became my home. In a world that can be so loud, stressful, and unpredictable, your voice is the one thing that calms my storm. Your laugh is my favorite sound on this earth, and seeing you smile makes every hard day worth it.
-                </p>
-
-                <div class="quote-box">
-                    "If I had to live this past year all over again, I wouldn't change a single second—because every moment led me deeper in love with you."
-                </div>
-
-                <p>
-                    Thank you, Babe, for loving me on my best days and holding me closer on my hardest ones. Thank you for your patience, your kindness, your warmth, and the way you care so deeply about us. You have seen parts of me no one else sees, and you loved me anyway. You have made me a better man, a happier soul, and someone who looks forward to tomorrow simply because you are in it.
-                </p>
-
-                <p>
-                    One year down, Linda, and my heart still skips a beat whenever I look at you. This first year was just the introduction to the greatest love story I could ever ask for. I want every anniversary after this one. I want the quiet mornings, the late-night talks, the dreams we haven't built yet, and growing old with my hand in yours.
-                </p>
-
-                <p>
-                    I love you more than words on a screen could ever hold, more than yesterday, and less than I will tomorrow. Happy one year, my love.
-                </p>
+                <p>I sat down trying to find the right words to capture what these past 365 days have meant to me, and honestly, my eyes started tearing up because no words will ever feel big enough for what I feel for you. A whole year ago today, our story officially began—and looking back now, I realize that saying "yes" to us was the single greatest blessing of my life.</p>
+                <p>To the world, your name is Linda. <span class="highlight">Buh to me, you will always be my Babe</span>—my safe place, my peace, my loudest cheerleader, and the person my heart instinctively searches for in every room. Every single time I call you "Babe," it isn't just a pet name; it is a reminder that you are mine, and I am completely, unconditionally yours.</p>
+                <p>Before you walked into my life, I didn't know love could feel this gentle yet this powerful. You didn't just become my girlfriend; you became my home. In a world that can be so loud, stressful, and unpredictable, your voice is the one thing that calms my storm. Your laugh is my favorite sound on this earth, and seeing you smile makes every hard day worth it.</p>
+                <div class="quote-box">"If I had to live this past year all over again, I wouldn't change a single second—because every moment led me deeper in love with you."</div>
+                <p>Thank you, Babe, for loving me on my best days and holding me closer on my hardest ones. Thank you for your patience, your kindness, your warmth, and the way you care so deeply about us. You have seen parts of me no one else sees, and you loved me anyway. You have made me a better man, a happier soul, and someone who looks forward to tomorrow simply because you are in it.</p>
+                <p>One year down, Linda, and my heart still skips a beat whenever I look at you. This first year was just the introduction to the greatest love story I could ever ask for. I want every anniversary after this one. I want the quiet mornings, the late-night talks, the dreams we haven't built yet, and growing old with my hand in yours.</p>
+                <p>I love you more than words on a screen could ever hold, more than yesterday, and less than I will tomorrow. Happy one year, my love.</p>
             </div>
-
             <div class="signature">
                 <p>Forever & Always Yours,</p>
                 <div class="name">Your Man <span class="heart-pulse">❤️</span></div>
@@ -366,49 +148,106 @@
     </div>
 
     <script>
-        function openLetter() {
-            var intro = document.getElementById('intro-screen');
-            var letter = document.getElementById('letter-card');
-            var musicBtn = document.getElementById('music-toggle');
-            var audio = document.getElementById('bg-music');
+        var audioCtx = null;
+        var isPlaying = false;
+        var melodyTimer = null;
+        var step = 0;
 
-            if (intro) intro.style.display = 'none';
-            if (letter) letter.style.display = 'block';
-            if (musicBtn) musicBtn.style.display = 'flex';
+        var melodySequence = [
+            { notes: [261.63, 329.63, 392.00, 493.88], dur: 0.75 },
+            { notes: [523.25], dur: 0.75 },
+            { notes: [493.88], dur: 0.75 },
+            { notes: [392.00], dur: 0.95 },
+            { notes: [220.00, 261.63, 329.63, 392.00], dur: 0.75 },
+            { notes: [440.00], dur: 0.75 },
+            { notes: [392.00], dur: 0.75 },
+            { notes: [329.63], dur: 0.95 },
+            { notes: [174.61, 220.00, 261.63, 329.63], dur: 0.75 },
+            { notes: [349.23], dur: 0.75 },
+            { notes: [329.63], dur: 0.75 },
+            { notes: [293.66], dur: 0.95 },
+            { notes: [196.00, 246.94, 293.66, 392.00], dur: 0.75 },
+            { notes: [329.63], dur: 0.75 },
+            { notes: [293.66], dur: 0.75 },
+            { notes: [246.94], dur: 1.15 }
+        ];
 
-            if (audio) {
-                audio.volume = 0.9;
-                var p = audio.play();
-                if (p !== undefined) {
-                    p.then(function() {
-                        document.getElementById('music-icon').textContent = '🎵';
-                        document.getElementById('music-text').textContent = 'Pause Music';
-                    }).catch(function() {
-                        document.getElementById('music-icon').textContent = '▶️';
-                        document.getElementById('music-text').textContent = 'Play Song';
-                    });
-                }
+        function playRomanticNote(freq, duration) {
+            if (!audioCtx || !isPlaying) return;
+            var now = audioCtx.currentTime;
+            var osc = audioCtx.createOscillator();
+            var overtone = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            var overtoneGain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+
+            overtone.type = 'triangle';
+            overtone.frequency.setValueAtTime(freq * 2, now);
+
+            overtoneGain.gain.setValueAtTime(0.035, now);
+            overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration * 1.5);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.linearRampToValueAtTime(0.14, now + 0.06);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + duration * 2.5);
+
+            osc.connect(gain);
+            overtone.connect(overtoneGain);
+            overtoneGain.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            overtone.start(now);
+            osc.stop(now + duration * 2.6);
+            overtone.stop(now + duration * 2.6);
+        }
+
+        function scheduleNextNote() {
+            if (!isPlaying) return;
+            var current = melodySequence[step % melodySequence.length];
+            current.notes.forEach(function(freq, idx) {
+                setTimeout(function() { playRomanticNote(freq, current.dur); }, idx * 45);
+            });
+            step++;
+            melodyTimer = setTimeout(scheduleNextNote, current.dur * 1000);
+        }
+
+        function startMusic() {
+            var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (!audioCtx && AudioContextClass) {
+                audioCtx = new AudioContextClass();
             }
-
-            spawnBurst(window.innerWidth / 2, window.innerHeight / 2, 80);
-            for (var i = 0; i < 15; i++) {
-                setTimeout(createBalloon, i * 150);
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
+            if (!isPlaying) {
+                isPlaying = true;
+                scheduleNextNote();
+            }
+            document.getElementById('music-icon').textContent = '🎵';
+            document.getElementById('music-text').textContent = 'Music Playing';
         }
 
         function toggleMusic() {
-            var audio = document.getElementById('bg-music');
-            var icon = document.getElementById('music-icon');
-            var text = document.getElementById('music-text');
-            if (audio.paused) {
-                audio.play();
-                icon.textContent = '🎵';
-                text.textContent = 'Pause Music';
+            if (isPlaying) {
+                isPlaying = false;
+                clearTimeout(melodyTimer);
+                document.getElementById('music-icon').textContent = '🔇';
+                document.getElementById('music-text').textContent = 'Play Music';
             } else {
-                audio.pause();
-                icon.textContent = '🔇';
-                text.textContent = 'Play Music';
+                startMusic();
             }
+        }
+
+        function openLetter() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('letter-card').style.display = 'block';
+            document.getElementById('music-toggle').style.display = 'flex';
+            startMusic();
+            spawnBurst(window.innerWidth / 2, window.innerHeight / 2, 80);
+            for (var i = 0; i < 15; i++) { setTimeout(createBalloon, i * 150); }
         }
 
         var balloonContainer = document.getElementById('balloons');
@@ -419,7 +258,6 @@
             'radial-gradient(circle at 30% 30%, #ffffff, #e0aaff)',
             'radial-gradient(circle at 30% 30%, #ff8fa3, #800f2f)'
         ];
-
         function createBalloon() {
             var balloon = document.createElement('div');
             balloon.className = 'balloon';
@@ -433,23 +271,15 @@
             balloonContainer.appendChild(balloon);
             setTimeout(function() { balloon.remove(); }, duration * 1000);
         }
-
-        for (var i = 0; i < 18; i++) {
-            setTimeout(createBalloon, i * 400);
-        }
+        for (var i = 0; i < 18; i++) { setTimeout(createBalloon, i * 400); }
         setInterval(createBalloon, 700);
 
         var canvas = document.getElementById('sparkles-canvas');
         var ctx = canvas.getContext('2d');
         var particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
-
         function Sparkle(x, y, burst) {
             this.x = x || Math.random() * canvas.width;
             this.y = y || Math.random() * canvas.height;
@@ -462,64 +292,32 @@
             this.color = Math.random() > 0.35 ? '255, 215, 0' : '255, 182, 193';
             this.burst = burst || false;
         }
-
         Sparkle.prototype.update = function() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.burst) {
-                this.alpha -= 0.015;
-            } else {
-                if (this.growing) {
-                    this.alpha += this.fadeSpeed;
-                    if (this.alpha >= 1) this.growing = false;
-                } else {
-                    this.alpha -= this.fadeSpeed;
-                    if (this.alpha <= 0.1) this.growing = true;
-                }
+            this.x += this.speedX; this.y += this.speedY;
+            if (this.burst) { this.alpha -= 0.015; }
+            else {
+                if (this.growing) { this.alpha += this.fadeSpeed; if (this.alpha >= 1) this.growing = false; }
+                else { this.alpha -= this.fadeSpeed; if (this.alpha <= 0.1) this.growing = true; }
                 if (this.y < 0) this.y = canvas.height;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.x > canvas.width) this.x = 0;
             }
         };
-
         Sparkle.prototype.draw = function() {
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.save(); ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(' + this.color + ',' + Math.max(0, this.alpha) + ')';
-            ctx.shadowBlur = 12;
-            ctx.shadowColor = 'rgba(' + this.color + ', 1)';
-            ctx.fill();
-            ctx.restore();
+            ctx.shadowBlur = 12; ctx.shadowColor = 'rgba(' + this.color + ', 1)'; ctx.fill(); ctx.restore();
         };
-
-        for (var j = 0; j < 120; j++) {
-            particles.push(new Sparkle());
-        }
-
-        function spawnBurst(x, y, count) {
-            for (var k = 0; k < count; k++) {
-                particles.push(new Sparkle(x, y, true));
-            }
-        }
-
-        window.addEventListener('touchstart', function(e) {
-            if (e.touches && e.touches[0]) {
-                spawnBurst(e.touches[0].clientX, e.touches[0].clientY, 12);
-            }
-        });
-
+        for (var j = 0; j < 120; j++) { particles.push(new Sparkle()); }
+        function spawnBurst(x, y, count) { for (var k = 0; k < count; k++) { particles.push(new Sparkle(x, y, true)); } }
+        window.addEventListener('touchstart', function(e) { if (e.touches && e.touches[0]) { spawnBurst(e.touches[0].clientX, e.touches[0].clientY, 12); } });
         function animateSparkles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles = particles.filter(function(p) { return !p.burst || p.alpha > 0; });
-            particles.forEach(function(p) {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(function(p) { p.update(); p.draw(); });
             requestAnimationFrame(animateSparkles);
         }
         animateSparkles();
     </script>
 </body>
 </html>
-
