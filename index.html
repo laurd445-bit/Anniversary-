@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 1st Anniversary, Linda ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --gold: #ffd700;
+            --bg-dark: #1a0b12;
+            --card-bg: rgba(255, 255, 255, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #3d1226 0%, #1a0b12 60%, #0d0408 100%);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: #333;
+            padding: 40px 20px;
+        }
+
+        /* Sparkles Canvas */
+        #sparkles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Floating Balloons Container */
+        .balloons-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 55px;
+            height: 68px;
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+            opacity: 0.85;
+            animation: floatUp linear infinite;
+            box-shadow: inset -8px -8px 15px rgba(0, 0, 0, 0.2), inset 8px 8px 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid inherit;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -55px;
+            left: 50%;
+            width: 1px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Content Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 750px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Intro Screen */
+        #intro-screen {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 50px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            color: #fff;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            font-weight: 400;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff4d6d, #c9184a);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 15px 0 30px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .open-btn {
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #2b0918;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .open-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Letter Card */
+        #letter-card {
+            display: none;
+            background: var(--card-bg);
+            padding: 55px 45px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 77, 109, 0.3);
+            text-align: left;
+            position: relative;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            animation: slideUp 1.2s ease forwards;
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 77, 109, 0.2);
+            padding-bottom: 25px;
+        }
+
+        .letter-header h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #c9184a;
+            margin-bottom: 5px;
+        }
+
+        .letter-header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #777;
+            font-size: 1.05rem;
+        }
+
+        .letter-body p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #2b2b2b;
+            margin-bottom: 22px;
+        }
+
+        .highlight {
+            color: #c9184a;
+            font-weight: 700;
+        }
+
+        .quote-box {
+            background: #fff0f3;
+            border-left: 4px solid #ff4d6d;
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #590d22;
+        }
+
+        .signature {
+            margin-top: 40px;
+            text-align: right;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .signature p {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .signature .name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: #c9184a;
+        }
+
+        .heart-pulse {
+            display: inline-block;
+            color: #ff4d6d;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 3.3rem; }
+            #letter-card { padding: 35px 25px; }
+            .letter-header h2 { font-size: 2.8rem; }
+            .letter-body p { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="sparkles-canvas"></canvas>
+    <div class="balloons-container" id="balloons"></div>
+
+    <div class="container">
+        <!-- Initial Welcome Card -->
+        <div id="intro-screen">
+            <div class="subtitle">365 Days of Loving You</div>
+            <h1>Happy 1st Anniversary,<br>Linda</h1>
+            <div class="date-badge">November 15 • Our One Year</div>
+            <p style="margin-bottom: 30px; font-weight: 300; line-height: 1.6; color: #f8edeb;">
+                My Babe, my best friend, my favorite person in this entire world.<br>
+                I made something special for you today.
+            </p>
+            <button class="open-btn" onclick="openLetter()">Open My Heart ❤️</button>
+        </div>
+
+        <!-- The Emotional Letter -->
+        <div id="letter-card">
+            <div class="letter-header">
+                <h2>To My Dearest Babe,</h2>
+                <p>One whole year of us, and forever to go...</p>
+            </div>
+
+            <div class="letter-body">
+                <p>Happy 1st Anniversary, <span class="highlight">Linda</span>.</p>
+
+                <p>
+                    I sat down trying to find the right words to capture what these past 365 days have meant to me, and honestly, my eyes started tearing up because no words will ever feel big enough for what I feel for you. A whole year ago today, our story officially began—and looking back now, I realize that saying "yes" to us was the single greatest blessing of my life.
+                </p>
+
+                <p>
+                    To the world, your name is Linda. <span class="highlight">Buh to me, you will always be my Babe</span>—my safe place, my peace, my loudest cheerleader, and the person my heart instinctively searches for in every room. Every single time I call you "Babe," it isn't just a pet name; it is a reminder that you are mine, and I am completely, unconditionally yours.
+                </p>
+
+                <p>
+                    Before you walked into my life, I didn't know love could feel this gentle yet this powerful. You didn't just become my girlfriend; you became my home. In a world that can be so loud, stressful, and unpredictable, your voice is the one thing that calms my storm. Your laugh is my favorite sound on this earth, and seeing you smile makes every hard day worth it.
+                </p>
+
+                <div class="quote-box">
+                    "If I had to live this past year all over again, I wouldn't change a single second—because every moment led me deeper in love with you."
+                </div>
+
+                <p>
+                    Thank you, Babe, for loving me on my best days and holding me closer on my hardest ones. Thank you for your patience, your kindness, your warmth, and the way you care so deeply about us. You have seen parts of me no one else sees, and you loved me anyway. You have made me a better man, a happier soul, and someone who looks forward to tomorrow simply because you are in it.
+                </p>
+
+                <p>
+                    One year down, Linda, and my heart still skips a beat whenever I look at you. This first year was just the introduction to the greatest love story I could ever ask for. I want every anniversary after this one. I want the quiet mornings, the late-night talks, the dreams we haven't built yet, and growing old with my hand in yours.
+                </p>
+
+                <p>
+                    I love you more than words on a screen could ever hold, more than yesterday, and less than I will tomorrow. Happy one year, my love.
+                </p>
+            </div>
+
+            <div class="signature">
+                <p>Forever & Always Yours,</p>
+                <div class="name">Your Man <span class="heart-pulse">❤️</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Floating Balloons Generator
+        const balloonContainer = document.getElementById('balloons');
+        const balloonColors = [
+            'radial-gradient(circle at 30% 30%, #ff758f, #c9184a)',
+            'radial-gradient(circle at 30% 30%, #ffe066, #d4a017)',
+            'radial-gradient(circle at 30% 30%, #ffccd5, #ff4d6d)',
+            'radial-gradient(circle at 30% 30%, #ffffff, #e0aaff)',
+            'radial-gradient(circle at 30% 30%, #ff8fa3, #800f2f)'
+        ];
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            
+            const size = Math.random() * 25 + 40; // 40px to 65px
+            balloon.style.width = `${size}px`;
+            balloon.style.height = `${size * 1.22}px`;
+            balloon.style.left = `${Math.random() * 100}vw`;
+            balloon.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            
+            const duration = Math.random() * 8 + 9; // 9s to 17s
+            balloon.style.animationDuration = `${duration}s`;
+            
+            balloonContainer.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, duration * 1000);
+        }
+
+        // Initial batch of balloons
+        for (let i = 0; i < 18; i++) {
+            setTimeout(createBalloon, i * 400);
+        }
+        setInterval(createBalloon, 700);
+
+        // 2. Sparkles Particle System
+        const canvas = document.getElementById('sparkles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Sparkle {
+            constructor(x, y, burst = false) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.size = Math.random() * 3.5 + 1;
+                this.speedX = burst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.5;
+                this.speedY = burst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.5 - 0.2;
+                this.alpha = Math.random();
+                this.fadeSpeed = Math.random() * 0.02 + 0.005;
+                this.growing = Math.random() > 0.5;
+                this.color = Math.random() > 0.35 ? '255, 215, 0' : '255, 182, 193'; // Gold & Soft Pink
+                this.burst = burst;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.burst) {
+                    this.alpha -= 0.015;
+                } else {
+                    if (this.growing) {
+                        this.alpha += this.fadeSpeed;
+                        if (this.alpha >= 1) this.growing = false;
+                    } else {
+                        this.alpha -= this.fadeSpeed;
+                        if (this.alpha <= 0.1) this.growing = true;
+                    }
+
+                    if (this.y < 0) this.y = canvas.height;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.x > canvas.width) this.x = 0;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color}, ${Math.max(0, this.alpha)})`;
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = `rgba(${this.color}, 1)`;
+                ctx.fill();
+
+                // Cross glint for brighter sparkles
+                if (this.alpha > 0.7 && this.size > 2.2) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${this.alpha * 0.8})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x - this.size * 2.5, this.y);
+                    ctx.lineTo(this.x + this.size * 2.5, this.y);
+                    ctx.moveTo(this.x, this.y - this.size * 2.5);
+                    ctx.lineTo(this.x, this.y + this.size * 2.5);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+        }
+
+        // Create ambient sparkles
+        for (let i = 0; i < 140; i++) {
+            particles.push(new Sparkle());
+        }
+
+        // Sparkle trail on mouse move / touch
+        function spawnBurst(x, y, count = 8) {
+            for (let i = 0; i < count; i++) {
+                particles.push(new Sparkle(x, y, true));
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => spawnBurst(e.clientX, e.clientY, 2));
+        window.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            spawnBurst(touch.clientX, touch.clientY, 15);
+        });
+
+        function animateSparkles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = particles.filter(p => !p.burst || p.alpha > 0);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateSparkles);
+        }
+        animateSparkles();
+
+        // 3. Open Letter Interaction
+        function openLetter() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('letter-card').style.display = 'block';
+            
+            // Celebration burst of sparkles and extra balloons
+            spawnBurst(window.innerWidth / 2, window.innerHeight / 2, 80);
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createBalloon, i * 150);
+            }
+        }
+    </script>
+</body>
+  </html>
+  
